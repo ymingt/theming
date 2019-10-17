@@ -2,29 +2,40 @@ import 'package:flutter/material.dart';
 import 'content.dart';
 import 'screen1.dart';
 import 'screen2.dart';
+import 'themes.dart';
+import 'customTheme.dart';
 
-void main() => runApp(Main());
+void main() {
+  runApp(
+    CustomTheme(
+      initialThemeKey: MyThemeKeys.LIGHT,
+      child: Main(),
+    ),
+  );
+}
+
+// void main() => runApp(Main());
 
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter BottomNavigationBar Tutorial',
-      theme: ThemeData(
-        // appBarTheme: AppBarTheme(color: Colors.yellow),
-        primarySwatch: Colors.red,
-        // primaryColor: Color(0xFF003c7e),
-        // accentColor: Color(0xFF4487c7),
-        // brightness: Brightness.dark,
-        // fontFamily: 'Roboto',
-        // textTheme: TextTheme(
-        //   body1: TextStyle(),
-        //   body2: TextStyle(),
-        // ).apply(
-        //   bodyColor: Colors.orange,
-        //   displayColor: Colors.blue,
-        // ),
-      ),
+      theme: CustomTheme.of(context),
+      // theme: ThemeData(
+      // appBarTheme: AppBarTheme(color: Colors.yellow),
+      // primarySwatch: Colors.red,
+      // primaryColor: Color(0xFF003c7e),
+      // accentColor: Color(0xFF4487c7),
+      // brightness: Brightness.dark,
+      // fontFamily: 'Roboto',
+      // textTheme: TextTheme(
+      //   body1: TextStyle(),
+      //   body2: TextStyle(),
+      // ).apply(
+      //   bodyColor: Colors.orange,
+      //   displayColor: Colors.blue,
+      // ),
+      // ),
       home: MainPage(),
       routes: <String, WidgetBuilder>{
         '/main': (BuildContext context) => new MainPage(),
@@ -58,7 +69,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter BottomNavigationBar Tutorial"),
+        title: Text("Flutter Theming"),
       ),
       drawer: Drawer(
         child: ListView(
@@ -128,3 +139,28 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+// import 'customTheme.dart';
+// import 'home.dart';
+// import 'package:flutter/material.dart';
+// import 'themes.dart';
+
+// void main() {
+//   runApp(
+//     CustomTheme(
+//       initialThemeKey: MyThemeKeys.LIGHT,
+//       child: MyApp(),
+//     ),
+//   );
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Dynamic themes demo',
+//       theme: CustomTheme.of(context),
+//       home: HomeScreen(),
+//     );
+//   }
+// }

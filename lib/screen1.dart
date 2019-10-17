@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'customTheme.dart';
+import 'themes.dart';
 
 enum SingingCharacter { lafayette, jefferson }
 
@@ -8,6 +10,10 @@ class Screen1 extends StatefulWidget {
 }
 
 class _State extends State<Screen1> {
+  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
+    CustomTheme.instanceOf(buildContext).changeTheme(key);
+  }
+
   bool _value1 = false;
   bool _value2 = false;
   SingingCharacter _character = SingingCharacter.lafayette;
@@ -19,7 +25,10 @@ class _State extends State<Screen1> {
   void _onChanged2(bool value) => setState(() => _value2Switch = value);
 
   //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
-  void _value1Changed(bool value) => setState(() => _value1 = value);
+  void _value1Changed(bool value) => {
+        _changeTheme(context, MyThemeKeys.DARKER),
+        setState(() => _value1 = value)
+      };
   void _value2Changed(bool value) => setState(() => _value2 = value);
 
   @override
@@ -79,9 +88,7 @@ class _State extends State<Screen1> {
               new SwitchListTile(
                 value: _value2Switch,
                 onChanged: _onChanged2,
-                title: new Text('Hello World',
-                    style: new TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.red)),
+                title: new Text('Hello World'),
               )
             ],
           ),
