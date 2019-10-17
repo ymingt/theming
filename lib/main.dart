@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'content.dart';
+// import 'content.dart';
 import 'screen1.dart';
 import 'screen2.dart';
 import 'themes.dart';
@@ -52,18 +52,36 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _currentIndex = 0;
-  final List<Widget> _children = [
-    ContentPage(title: "Home Page"),
-    ContentPage(title: "Messages Page"),
-    ContentPage(title: "Profile Page")
-  ];
-
-  void _onBottomNavBarTab(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
+    CustomTheme.instanceOf(buildContext).changeTheme(key);
   }
+
+  // int _currentIndex = 0;
+  // final List<Widget> _children = [
+  //   ContentPage(title: "Home Page"),
+  //   ContentPage(title: "Messages Page"),
+  //   ContentPage(title: "Profile Page")
+  // ];
+
+  // void _onBottomNavBarTab(int index) {
+  //   setState(() {
+  //     _currentIndex = index;
+  //   });
+  // }
+
+  bool _value2Switch = false;
+
+  void _onChanged2(bool value) => {
+        if (value)
+          {
+            _changeTheme(context, MyThemeKeys.DARKER),
+          }
+        else
+          {
+            _changeTheme(context, MyThemeKeys.LIGHT),
+          },
+        setState(() => _value2Switch = value)
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +98,6 @@ class _MainPageState extends State<MainPage> {
               accountName: Text("Flutter Team"),
               accountEmail: Text("flutter_team@gmail.com"),
               currentAccountPicture: CircleAvatar(
-                backgroundColor:
-                    Theme.of(context).platform == TargetPlatform.iOS
-                        ? Colors.blue
-                        : Colors.white,
                 child: Text(
                   "F",
                   style: TextStyle(fontSize: 40.0),
@@ -95,7 +109,7 @@ class _MainPageState extends State<MainPage> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/screen1');
+                // Navigator.of(context).pushNamed('/screen1');
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
                 //       builder: (BuildContext context) => NewPage("Page two")),
@@ -107,7 +121,7 @@ class _MainPageState extends State<MainPage> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/screen2');
+                // Navigator.of(context).pushNamed('/screen2');
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
                 //       builder: (BuildContext context) => NewPage("Page two")),
@@ -117,25 +131,39 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onBottomNavBarTab,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+      // body: _children[_currentIndex],
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+            children: <Widget>[
+              new SwitchListTile(
+                value: _value2Switch,
+                onChanged: _onChanged2,
+                title: new Text('Dark Theme'),
+              )
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            title: Text('Messages'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profile'),
-          )
-        ],
+        ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: _currentIndex,
+      //   onTap: _onBottomNavBarTab,
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       title: Text('Home'),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.mail),
+      //       title: Text('Messages'),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       title: Text('Profile'),
+      //     )
+      //   ],
+      // ),
     );
   }
 }

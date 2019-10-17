@@ -18,11 +18,19 @@ class _State extends State<Screen1> {
   bool _value2 = false;
   SingingCharacter _character = SingingCharacter.lafayette;
 
-  bool _value1Switch = false;
   bool _value2Switch = false;
 
-  void _onChanged1(bool value) => setState(() => _value1Switch = value);
-  void _onChanged2(bool value) => setState(() => _value2Switch = value);
+  void _onChanged2(bool value) => {
+        if (value)
+          {
+            _changeTheme(context, MyThemeKeys.DARKER),
+          }
+        else
+          {
+            _changeTheme(context, MyThemeKeys.LIGHT),
+          },
+        setState(() => _value2Switch = value)
+      };
 
   //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
   void _value1Changed(bool value) => {
@@ -35,14 +43,14 @@ class _State extends State<Screen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Screen1"),
+        title: Text("Settings"),
       ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(15.0),
           child: Column(
             children: <Widget>[
-              Text('Screen1'),
+              Text('Settings'),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -58,7 +66,6 @@ class _State extends State<Screen1> {
                 controlAffinity: ListTileControlAffinity.leading,
                 subtitle: new Text('Subtitle'),
                 secondary: new Icon(Icons.archive),
-                activeColor: Colors.red,
               ),
               ListTile(
                 title: const Text('Lafayette'),
@@ -84,11 +91,10 @@ class _State extends State<Screen1> {
                   },
                 ),
               ),
-              new Switch(value: _value1Switch, onChanged: _onChanged1),
               new SwitchListTile(
                 value: _value2Switch,
                 onChanged: _onChanged2,
-                title: new Text('Hello World'),
+                title: new Text('Dark Theme'),
               )
             ],
           ),
