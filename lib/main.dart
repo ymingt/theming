@@ -14,28 +14,11 @@ void main() {
   );
 }
 
-// void main() => runApp(Main());
-
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: CustomTheme.of(context),
-      // theme: ThemeData(
-      // appBarTheme: AppBarTheme(color: Colors.yellow),
-      // primarySwatch: Colors.red,
-      // primaryColor: Color(0xFF003c7e),
-      // accentColor: Color(0xFF4487c7),
-      // brightness: Brightness.dark,
-      // fontFamily: 'Roboto',
-      // textTheme: TextTheme(
-      //   body1: TextStyle(),
-      //   body2: TextStyle(),
-      // ).apply(
-      //   bodyColor: Colors.orange,
-      //   displayColor: Colors.blue,
-      // ),
-      // ),
       home: MainPage(),
       routes: <String, WidgetBuilder>{
         '/main': (BuildContext context) => new MainPage(),
@@ -50,6 +33,8 @@ class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
+
+enum ThemeSelection { light, dark, custom }
 
 class _MainPageState extends State<MainPage> {
   void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
@@ -68,6 +53,8 @@ class _MainPageState extends State<MainPage> {
   //     _currentIndex = index;
   //   });
   // }
+
+  ThemeSelection _currentTheme = ThemeSelection.light;
 
   bool _value2Switch = false;
 
@@ -137,6 +124,53 @@ class _MainPageState extends State<MainPage> {
           padding: EdgeInsets.all(15.0),
           child: Column(
             children: <Widget>[
+              ListTile(
+                title: const Text('Light'),
+                leading: Radio(
+                  value: ThemeSelection.light,
+                  groupValue: _currentTheme,
+                  onChanged: (ThemeSelection value) {
+                    _changeTheme(context, MyThemeKeys.LIGHT);
+                    setState(() {
+                      _currentTheme = value;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text('Dark'),
+                leading: Radio(
+                  value: ThemeSelection.dark,
+                  groupValue: _currentTheme,
+                  onChanged: (ThemeSelection value) {
+                    _changeTheme(context, MyThemeKeys.DARKER);
+                    setState(() {
+                      _currentTheme = value;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title: const Text('Custom'),
+                leading: Radio(
+                  value: ThemeSelection.custom,
+                  groupValue: _currentTheme,
+                  onChanged: (ThemeSelection value) {
+                    _changeTheme(context, MyThemeKeys.CUSTOM);
+                    setState(() {
+                      _currentTheme = value;
+                    });
+                  },
+                ),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  print('CustomTheme.of(context), ${CustomTheme.of(context)}');
+                  CustomTheme.of(context);
+                },
+                child: const Text('Enabled Button',
+                    style: TextStyle(fontSize: 20)),
+              ),
               new SwitchListTile(
                 value: _value2Switch,
                 onChanged: _onChanged2,
@@ -167,28 +201,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-// import 'customTheme.dart';
-// import 'home.dart';
-// import 'package:flutter/material.dart';
-// import 'themes.dart';
-
-// void main() {
-//   runApp(
-//     CustomTheme(
-//       initialThemeKey: MyThemeKeys.LIGHT,
-//       child: MyApp(),
-//     ),
-//   );
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Dynamic themes demo',
-//       theme: CustomTheme.of(context),
-//       home: HomeScreen(),
-//     );
-//   }
-// }
