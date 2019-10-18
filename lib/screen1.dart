@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'customTheme.dart';
-import 'themes.dart';
 
 enum SingingCharacter { lafayette, jefferson }
 
@@ -10,37 +8,25 @@ class Screen1 extends StatefulWidget {
 }
 
 class _State extends State<Screen1> {
-  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
-    CustomTheme.instanceOf(buildContext).changeTheme(key);
-  }
-
   bool _value1 = false;
   bool _value2 = false;
   SingingCharacter _character = SingingCharacter.lafayette;
 
   bool _value2Switch = false;
 
-  void _onChanged2(bool value) => {
-        if (value)
-          {
-            _changeTheme(context, MyThemeKeys.DARKER),
-          }
-        else
-          {
-            _changeTheme(context, MyThemeKeys.LIGHT),
-          },
-        setState(() => _value2Switch = value)
-      };
+  void _onChanged2(bool value) => setState(() => _value2Switch = value);
 
   //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
-  void _value1Changed(bool value) => {
-        _changeTheme(context, MyThemeKeys.DARKER),
-        setState(() => _value1 = value)
-      };
+  void _value1Changed(bool value) => setState(() => _value1 = value);
   void _value2Changed(bool value) => setState(() => _value2 = value);
 
   @override
   Widget build(BuildContext context) {
+    final newTextTheme = Theme.of(context).textTheme.apply(
+          bodyColor: Colors.orange[200],
+          displayColor: Colors.orange[200],
+        );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
@@ -50,7 +36,17 @@ class _State extends State<Screen1> {
           padding: EdgeInsets.all(15.0),
           child: Column(
             children: <Widget>[
-              Text('Settings'),
+              Text(
+                'Text',
+                style: Theme.of(context)
+                    .textTheme
+                    .title
+                    .copyWith(color: Colors.lightBlueAccent),
+              ),
+              Text(
+                'New Text',
+                style: newTextTheme.display1,
+              ),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -64,7 +60,7 @@ class _State extends State<Screen1> {
                 onChanged: _value2Changed,
                 title: new Text('Hello World'),
                 controlAffinity: ListTileControlAffinity.leading,
-                subtitle: new Text('Subtitle'),
+                subtitle: new Text('TGIF'),
                 secondary: new Icon(Icons.archive),
               ),
               ListTile(
@@ -94,7 +90,7 @@ class _State extends State<Screen1> {
               new SwitchListTile(
                 value: _value2Switch,
                 onChanged: _onChanged2,
-                title: new Text('Dark Theme'),
+                title: new Text('Hello World'),
               )
             ],
           ),

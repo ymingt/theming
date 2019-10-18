@@ -102,7 +102,7 @@ class _MainPageState extends State<MainPage> {
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.of(context).pop();
-                // Navigator.of(context).pushNamed('/screen1');
+                Navigator.of(context).pushNamed('/screen1');
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
                 //       builder: (BuildContext context) => NewPage("Page two")),
@@ -169,27 +169,32 @@ class _MainPageState extends State<MainPage> {
               //     },
               //   ),
               // ),
+
               RaisedButton(
-                onPressed: () => _themeChanger.setTheme(ThemeData.light()),
+                onPressed: () => _themeChanger.setTheme(MyThemes.lightTheme),
                 child: Text('Light'),
               ),
               RaisedButton(
-                onPressed: () => _themeChanger.setTheme(ThemeData.dark()),
+                onPressed: () => _themeChanger.setTheme(MyThemes.darkerTheme),
                 child: Text('Dark'),
               ),
               RaisedButton(
-                onPressed: () {
-                  print('CustomTheme.of(context), ${CustomTheme.of(context)}');
-                  CustomTheme.of(context);
-                },
-                child: const Text('Enabled Button',
-                    style: TextStyle(fontSize: 20)),
+                onPressed: () => _themeChanger.setTheme(MyThemes.customTheme),
+                child: Text('Custom'),
               ),
-              new SwitchListTile(
-                value: _value2Switch,
-                onChanged: _onChanged2,
-                title: new Text('Dark Theme'),
-              )
+              // RaisedButton(
+              //   onPressed: () {
+              //     print('CustomTheme.of(context), ${CustomTheme.of(context)}');
+              //     CustomTheme.of(context);
+              //   },
+              //   child: const Text('Enabled Button',
+              //       style: TextStyle(fontSize: 20)),
+              // ),
+              // new SwitchListTile(
+              //   value: _value2Switch,
+              //   onChanged: _onChanged2,
+              //   title: new Text('Dark Theme'),
+              // )
             ],
           ),
         ),
