@@ -4,21 +4,27 @@ import 'screen1.dart';
 import 'screen2.dart';
 import 'themes.dart';
 import 'customTheme.dart';
+import 'theme.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(
-    CustomTheme(
-      initialThemeKey: MyThemeKeys.LIGHT,
+void main() => runApp(MainWithTheme());
+
+class MainWithTheme extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ThemeChanger>(
+      builder: (_) => ThemeChanger(ThemeData.dark()),
       child: Main(),
-    ),
-  );
+    );
+  }
 }
 
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeChanger>(context);
     return MaterialApp(
-      theme: CustomTheme.of(context),
+      theme: theme.getTheme(),
       home: MainPage(),
       routes: <String, WidgetBuilder>{
         '/main': (BuildContext context) => new MainPage(),
@@ -58,20 +64,20 @@ class _MainPageState extends State<MainPage> {
 
   bool _value2Switch = false;
 
-  void _onChanged2(bool value) => {
-        if (value)
-          {
-            _changeTheme(context, MyThemeKeys.DARKER),
-          }
-        else
-          {
-            _changeTheme(context, MyThemeKeys.LIGHT),
-          },
-        setState(() => _value2Switch = value)
-      };
-
   @override
   Widget build(BuildContext context) {
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    void _onChanged2(bool value) => {
+          if (value)
+            {
+              _themeChanger.setTheme(ThemeData.dark()),
+            }
+          else
+            {
+              _themeChanger.setTheme(ThemeData.light()),
+            },
+          // setState(() => _value2Switch = value)
+        };
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter Theming"),
@@ -124,44 +130,52 @@ class _MainPageState extends State<MainPage> {
           padding: EdgeInsets.all(15.0),
           child: Column(
             children: <Widget>[
-              ListTile(
-                title: const Text('Light'),
-                leading: Radio(
-                  value: ThemeSelection.light,
-                  groupValue: _currentTheme,
-                  onChanged: (ThemeSelection value) {
-                    _changeTheme(context, MyThemeKeys.LIGHT);
-                    setState(() {
-                      _currentTheme = value;
-                    });
-                  },
-                ),
+              // ListTile(
+              //   title: const Text('Light'),
+              //   leading: Radio(
+              //     value: ThemeSelection.light,
+              //     groupValue: _currentTheme,
+              //     onChanged: (ThemeSelection value) {
+              //       _changeTheme(context, MyThemeKeys.LIGHT);
+              //       setState(() {
+              //         _currentTheme = value;
+              //       });
+              //     },
+              //   ),
+              // ),
+              // ListTile(
+              //   title: const Text('Dark'),
+              //   leading: Radio(
+              //     value: ThemeSelection.dark,
+              //     groupValue: _currentTheme,
+              //     onChanged: (ThemeSelection value) {
+              //       _changeTheme(context, MyThemeKeys.DARKER);
+              //       setState(() {
+              //         _currentTheme = value;
+              //       });
+              //     },
+              //   ),
+              // ),
+              // ListTile(
+              //   title: const Text('Custom'),
+              //   leading: Radio(
+              //     value: ThemeSelection.custom,
+              //     groupValue: _currentTheme,
+              //     onChanged: (ThemeSelection value) {
+              //       _changeTheme(context, MyThemeKeys.CUSTOM);
+              //       setState(() {
+              //         _currentTheme = value;
+              //       });
+              //     },
+              //   ),
+              // ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(ThemeData.light()),
+                child: Text('Light'),
               ),
-              ListTile(
-                title: const Text('Dark'),
-                leading: Radio(
-                  value: ThemeSelection.dark,
-                  groupValue: _currentTheme,
-                  onChanged: (ThemeSelection value) {
-                    _changeTheme(context, MyThemeKeys.DARKER);
-                    setState(() {
-                      _currentTheme = value;
-                    });
-                  },
-                ),
-              ),
-              ListTile(
-                title: const Text('Custom'),
-                leading: Radio(
-                  value: ThemeSelection.custom,
-                  groupValue: _currentTheme,
-                  onChanged: (ThemeSelection value) {
-                    _changeTheme(context, MyThemeKeys.CUSTOM);
-                    setState(() {
-                      _currentTheme = value;
-                    });
-                  },
-                ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(ThemeData.dark()),
+                child: Text('Dark'),
               ),
               RaisedButton(
                 onPressed: () {
