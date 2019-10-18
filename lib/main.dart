@@ -182,6 +182,34 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () => _themeChanger.setTheme(MyThemes.customTheme),
                 child: Text('Custom'),
               ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.limeTheme),
+                color: Colors.lime,
+              ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.cyanTheme),
+                color: Colors.cyan,
+              ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.amberTheme),
+                color: Colors.amber,
+              ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.indigoTheme),
+                color: Colors.indigo,
+              ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.brownTheme),
+                color: Colors.brown,
+              ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.greenTheme),
+                color: Colors.green,
+              ),
+              RaisedButton(
+                onPressed: () => _themeChanger.setTheme(MyThemes.pinkTheme),
+                color: Colors.pink,
+              ),
               // RaisedButton(
               //   onPressed: () {
               //     print('CustomTheme.of(context), ${CustomTheme.of(context)}');

@@ -25,6 +25,27 @@ class MyThemes {
     buttonColor: Colors.yellow,
     fontFamily: 'Righteous',
   );
+  static final ThemeData limeTheme = ThemeData(
+    primarySwatch: Colors.lime,
+  );
+  static final ThemeData cyanTheme = ThemeData(
+    primarySwatch: Colors.cyan,
+  );
+  static final ThemeData amberTheme = ThemeData(
+    primarySwatch: Colors.amber,
+  );
+  static final ThemeData indigoTheme = ThemeData(
+    primarySwatch: Colors.indigo,
+  );
+  static final ThemeData brownTheme = ThemeData(
+    primarySwatch: Colors.brown,
+  );
+  static final ThemeData greenTheme = ThemeData(
+    primarySwatch: Colors.green,
+  );
+  static final ThemeData pinkTheme = ThemeData(
+    primarySwatch: Colors.pink,
+  );
 
   static ThemeData getThemeFromKey(MyThemeKeys themeKey) {
     switch (themeKey) {
