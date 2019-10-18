@@ -27,6 +27,15 @@ class _State extends State<Screen1> {
           displayColor: Colors.orange[200],
         );
 
+    ThemeData theme = Theme.of(context);
+    TextTheme partialTheme = TextTheme(
+      display1: TextStyle(color: Colors.green),
+      title: TextStyle(color: Colors.blueGrey),
+    );
+    theme = theme.copyWith(
+      textTheme: theme.textTheme.merge(partialTheme),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
@@ -37,15 +46,19 @@ class _State extends State<Screen1> {
           child: Column(
             children: <Widget>[
               Text(
-                'Text',
+                'Text - copyWith',
                 style: Theme.of(context)
                     .textTheme
                     .title
                     .copyWith(color: Colors.lightBlueAccent),
               ),
               Text(
-                'New Text',
+                'Text - apply',
                 style: newTextTheme.display1,
+              ),
+              Text(
+                'Text - merge',
+                style: theme.textTheme.title,
               ),
               TextField(
                 obscureText: true,
