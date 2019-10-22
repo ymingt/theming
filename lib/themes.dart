@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 enum MyThemeKeys { LIGHT, DARK, DARKER, CUSTOM }
 
+class CustomTextStyle {
+  static TextStyle display5(BuildContext context) {
+    return Theme.of(context).textTheme.display4.copyWith(fontSize: 192.0);
+  }
+}
+
 class MyThemes {
   static final ThemeData lightTheme = ThemeData(
     primaryColor: Colors.blue,
