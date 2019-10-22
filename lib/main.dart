@@ -6,6 +6,8 @@ import 'themes.dart';
 import 'customTheme.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
+import 'customButton.dart';
+// import 'cTheme.dart' as Theme;
 
 void main() => runApp(MainWithTheme());
 
@@ -14,6 +16,7 @@ class MainWithTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ThemeChanger>(
       builder: (_) => ThemeChanger(ThemeData.dark()),
+      // builder: (_) => ThemeChanger(Theme.companyThemeData,),
       child: Main(),
     );
   }
@@ -210,6 +213,11 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () => _themeChanger.setTheme(MyThemes.pinkTheme),
                 color: Colors.pink,
               ),
+              CustomButton(
+                onPressed: () {
+                  print("Tapped Me");
+                },
+              )
               // RaisedButton(
               //   onPressed: () {
               //     print('CustomTheme.of(context), ${CustomTheme.of(context)}');
