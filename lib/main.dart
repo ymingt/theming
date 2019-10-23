@@ -14,9 +14,14 @@ void main() => runApp(MainWithTheme());
 class MainWithTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // final theme = Provider.of<ThemeChanger>(context);
     return ChangeNotifierProvider<ThemeChanger>(
-      builder: (_) => ThemeChanger(ThemeData.dark()),
-      child: Main(),
+      builder: (_) => ThemeChanger(ThemeData.light()),
+      child: LayoutThemeContainer(
+        themeData: ThemeData.dark(),
+        fsmButtonColor: Colors.blue,
+        child: Main(),
+      ),
     );
   }
 }
@@ -24,17 +29,14 @@ class MainWithTheme extends StatelessWidget {
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
-    return LayoutThemeContainer(
-      child: MaterialApp(
-        theme: theme.getTheme(),
-        home: MainPage(),
-        routes: <String, WidgetBuilder>{
-          '/main': (BuildContext context) => new MainPage(),
-          '/screen1': (BuildContext context) => new Screen1(),
-          '/screen2': (BuildContext context) => new Screen2(),
-        },
-      ),
+    return MaterialApp(
+      theme: LayoutThemeContainer.of(context).themeData,
+      home: MainPage(),
+      routes: <String, WidgetBuilder>{
+        '/main': (BuildContext context) => new MainPage(),
+        '/screen1': (BuildContext context) => new Screen1(),
+        '/screen2': (BuildContext context) => new Screen2(),
+      },
     );
   }
 }
@@ -149,17 +151,9 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () => _themeChanger.setTheme(MyThemes.pinkTheme),
                 color: Colors.pink,
               ),
-              // RaisedButton(
-              //   child: Text(
-              //     'FSMOne Button',
-              //     style: TextStyle(color: Colors.white),
-              //   ),
-              //   onPressed: () {},
-              //   color: LayoutThemeContainer.of(context).fsmColor,
-              // ),
               FsmButton(
                 buttonText: "FSMButton",
-                disabled: true,
+                disabled: false,
                 onPress: () {},
               ),
             ],

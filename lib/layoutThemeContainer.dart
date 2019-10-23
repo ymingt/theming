@@ -4,33 +4,36 @@ class LayoutThemeContainer extends StatefulWidget {
   @override
   LayoutThemeState createState() => LayoutThemeState();
   final Widget child;
-  LayoutThemeContainer({this.child});
-  static LayoutThemeState of(BuildContext context) {
+  final ThemeData themeData;
+  final Color fsmButtonColor;
+  LayoutThemeContainer({this.child, this.themeData, this.fsmButtonColor});
+  static _InheritedStateContainer of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(_InheritedStateContainer)
-            as _InheritedStateContainer)
-        .data;
+        as _InheritedStateContainer);
   }
 }
 
 class LayoutThemeState extends State<LayoutThemeContainer> {
-  // Add all your theme properties and logic here:
-  double get spacingUnit => 10.0;
-  Color get fsmColor => Colors.red;
+  ThemeData themeData;
+  Color fsmButtonColor;
   @override
   Widget build(BuildContext context) {
-    return new _InheritedStateContainer(
-      data: this,
+    return _InheritedStateContainer(
       child: widget.child,
+      themeData: widget.themeData,
+      fsmButtonColor: widget.fsmButtonColor,
     );
   }
 }
 
 class _InheritedStateContainer extends InheritedWidget {
-  final LayoutThemeState data;
+  final ThemeData themeData;
+  final Color fsmButtonColor;
 
   _InheritedStateContainer({
     Key key,
-    @required this.data,
+    @required this.themeData,
+    this.fsmButtonColor,
     @required Widget child,
   }) : super(key: key, child: child);
 

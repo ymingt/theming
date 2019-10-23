@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'layoutThemeContainer.dart';
 
 class FsmButton extends StatelessWidget {
   final String buttonText;
@@ -16,7 +17,7 @@ class FsmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return new RaisedButton(
       child: Text(buttonText),
-      color: color,
+      color: LayoutThemeContainer.of(context).fsmButtonColor,
       onPressed: disabled ? null : onPress,
     );
   }
